@@ -1,242 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="matrix-2.png">
     <title>Video Translator</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: "Poppins", sans-serif;
         }
-
-        :root {
-            --primary-color: rgba(1, 74, 108, 0.8);
-            --secondary-color: rgba(255, 255, 255, 0.2);
-            --tertiary-color: #0794ac95;
-        }
-
         body {
-            background: url(sunset.jpg);
+            background: url(matrix-2.png);
             background-size: cover;
             color: white;
             padding: 50px;
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+    
         }
-
-        .whole-container {
-            position: absolute;
-            background: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
+        .container {
+            background: rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px); 
             padding: 30px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 0px 10px rgb(47, 255, 227);
+            border:3.5px solid rgba(0, 255, 247, 0.364);
+            border-radius: 12px;
             text-align: center;
-            border: 3px solid rgba(255, 255, 255, 0.2);
             width: 100%;
             max-width: 500px;
-            border-radius: 12px;
         }
-
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #000000, #0382a5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        input[type="file"] {
-            display: none;
-        }
-
+        h1 { font-size: 24px; margin-bottom: 20px; }
+        input[type="file"] { display: none; }
         .custom-file-upload {
             display: inline-block;
-            background: var(--primary-color);
-            border: 2px solid var(--secondary-color);
-            box-shadow: 5px 5px 1px var(--tertiary-color);
-            color: white;
+            background: #000000;
+            border:2px solid;/* rgba(1, 255, 1, 0.61);*/
+            border-image-source: linear-gradient(45deg,rgb(1, 255, 1),blue);
+            border-image-slice: 1;
             padding: 10px 15px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: 0.3s ease;
-        }
-
-        .custom-file-upload:hover {
-            background: var(--tertiary-color);
-            box-shadow: 5px 5px 1px var(--primary-color);
-            color: black;
-        }
-
-        .label-select-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-        }
-
-        .label-select-container label {
-            width: 50%;
-            text-align: center;
-            font-size: 16px;
-            font-weight: 400;
-            background: linear-gradient(to right, #000000, #0382a5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .label-select-container select {
-            width: 50%;
-            background: var(--primary-color);
-            border: 2px solid var(--secondary-color);
-            box-shadow: 5px 5px 1px var(--tertiary-color);
             color: white;
-            outline: none;
-            appearance: none;
-            padding: 10px;
+            transition:.5s;
+            box-shadow: 0px 0px 5px rgb(1, 255, 1);
             border-radius: 5px;
-            font-size: 16px;
             cursor: pointer;
         }
-
-        button {
-            background: var(--primary-color);
+        video { display: none; width: 100%; margin-top: 10px; border-radius: 6px; }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            outline: none;
             color: white;
-            border: 2px solid var(--secondary-color);
-            padding: 12px 20px;
-            border-radius: 6px;
-            font-size: 16px;
-            box-shadow: 5px 5px 1px var(--tertiary-color);
-            cursor: pointer;
-            transition: 0.3s ease;
+            box-shadow: 0px 0px 10px rgb(1, 255, 251);
+            background: #000000;
+            border:2px solid;/* rgba(1, 255, 1, 0.61);*/
+            border-image-source: linear-gradient(45deg,rgb(1, 255, 1),blue);
+            border-image-slice: 1;
             margin-top: 10px;
+            transition:.5s;
+            border-radius: 5px;
+            cursor: pointer;
         }
-
-        button:hover {
-            background: var(--tertiary-color);
-            box-shadow: 5px 5px 1px var(--primary-color);
-            color: black;
+        button:hover{
+            box-shadow: 1px 1px 20px rgb(0, 255, 0);
         }
-
-        #output {
-            margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
+        select:hover{
+            box-shadow: 1px 1px 20px rgb(0, 255, 0);
         }
-
+        .custom-file-upload:hover{
+            box-shadow: 1px 1px 20px rgb(0, 255, 0);
+        }
+        #downloadLink:hover{
+            box-shadow: 1px 1px 20px rgb(0, 255, 0);
+        }
+        #output, #originalText, #translatedText { 
+            display: none; 
+            font-size: 16px; 
+            margin-top: 10px;
+            text-align:justify;
+        }
         #downloadLink {
             display: none;
-            margin-top: 10px;
-            background: #00d26a;
             padding: 10px;
+            transition:0.5s;
             border-radius: 6px;
+            outline: none;
             color: white;
+            box-shadow: 0px 0px 10px rgb(1, 255, 251);
+            background: #000000;
+            border:2px solid;/* rgba(1, 255, 1, 0.61);*/
+            border-image-source: linear-gradient(45deg,rgb(1, 255, 1),blue);
+            border-image-slice: 1;
+        
             text-decoration: none;
+            margin-top: 10px;
         }
+        .flexy{
+            display: flex;
+            margin-top: 20px;
+        }
+
+        select::-webkit-scrollbar {
+            width: 7px;
+            
+        }
+
+        select::-webkit-scrollbar-track {
+            background-color: rgb(0, 0, 0);
+            border-radius: 10px;
+        }
+
+        select::-webkit-scrollbar-thumb {
+            background-color: rgb(0, 255, 0);
+            border-radius: 10px;
+        }
+        #videoPreview{
+            box-shadow: 1px 1px 20px rgb(0, 255, 0);
+            margin-top:15px;
+        }
+    
     </style>
 </head>
 
 <body>
-
-    <div class="whole-container">
+    <center><div class="container">
         <h1>🎥 Video Translator</h1>
-
-        <label for="videoInput" class="custom-file-upload">📂 Choose a Video</label>
+        <label for="videoInput" class="custom-file-upload" id="sthimba">📂 Choose a Video</label>
         <input type="file" id="videoInput" accept="video/*">
-        <br><br>
+        
+        <video id="videoPreview" controls></video>
+        <p id="videoUploaded" style="display:none;margin-top:20px">✅ Video Uploaded!</p>
+        <div class="flexy">
+            <label for="language" style="width:50%;padding-top:15px">Select Language</label>
+            <select id="language" style="width:50%;">
+                    <option value="ar">Arabic</option>
+                    <option value="bn">Bengali</option>
+                    <option value="zh">Chinese</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="hi">Hindi</option>
+                    <option value="it">Italian</option>
+                    <option value="ja">Japanese</option>
+                    <option value="kn">Kannada</option>
+                    <option value="ml">Malayalam</option>
+                    <option value="mr">Marathi</option>
+                    <option value="pa">Punjabi</option>
+                    <option value="es">Spanish</option>
+                    <option value="ta">Tamil</option>
+                    <option value="te">Telugu</option>
 
-        <div class="label-select-container">
-            <label for="language">Select Language</label>
-            <select id="language">
-                <option value="ar">Arabic</option>
-                <option value="bn">Bengali</option>
-                <option value="zh">Chinese</option>
-                <option value="fr">French</option>
-                <option value="de">German</option>
-                <option value="hi">Hindi</option>
-                <option value="it">Italian</option>
-                <option value="ja">Japanese</option>
-                <option value="kn">Kannada</option>
-                <option value="ml">Malayalam</option>
-                <option value="mr">Marathi</option>
-                <option value="pa">Punjabi</option>
-                <option value="es">Spanish</option>
-                <option value="ta">Tamil</option>
-                <option value="te">Telugu</option>
             </select>
         </div>
-        <br><br>
 
-        <button id="processButton">Upload & Translate</button>
+        <button id="processButton" style="margin-top: 30px;letter-spacing:3.5px">SUBMIT</button>
 
-        <div id="output"></div>
+        <p id="output" style="text-align: center;">🔄 Processing video, please wait...</p>
+        <p id="originalText"></p>
+        <p id="translatedText"></p>
+
         <a id="downloadLink" href="#" download>Download Translated Video</a>
     </div>
+    </center>
 
     <script>
+        document.getElementById("videoInput").addEventListener("change", function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                document.getElementById("videoUploaded").style.display = "block";
+                document.getElementById("sthimba").style.display = "none";
+                const videoPreview = document.getElementById("videoPreview");
+                videoPreview.src = URL.createObjectURL(file);
+                videoPreview.style.display = "block";
+            }
+        });
+
         document.getElementById("processButton").addEventListener("click", async function () {
             const videoInput = document.getElementById("videoInput");
             const language = document.getElementById("language").value;
             const output = document.getElementById("output");
+            const originalText = document.getElementById("originalText");
+            const translatedText = document.getElementById("translatedText");
             const downloadLink = document.getElementById("downloadLink");
-        
+
             if (videoInput.files.length === 0) {
                 output.textContent = "❌ Please select a video file.";
+                output.style.display = "block";
                 return;
             }
-        
+
             const file = videoInput.files[0];
             const formData = new FormData();
             formData.append("video", file);
             formData.append("language", language);
-        
+
             output.textContent = "🔄 Processing video, please wait...";
-            downloadLink.style.display = "none"; // Hide download link while processing
-        
+            output.style.display = "block";
+            downloadLink.style.display = "none";
+
             try {
-                console.log("🔹 Sending video to backend...");  // Debugging log
-        
                 const response = await fetch("http://127.0.0.1:5000/process", {
                     method: "POST",
                     body: formData
                 });
-        
-                console.log("🔹 Response received from server");  // Debugging log
-        
+
                 const result = await response.json();
-                
+
                 if (response.ok) {
-                    console.log("✅ Success:", result);
-                    output.textContent = "✅ Processing complete! Download your translated video.";
+                    output.textContent = "✅ Processing complete!";
+                    originalText.textContent = `🎤 Original Audio Text: ${result.original_text}`;
+                    translatedText.textContent = `🌍 Translated Audio Text: ${result.translated_text}`;
+                    
+                    originalText.style.display = "block";
+                    translatedText.style.display = "block";
+
                     downloadLink.href = result.download_url;
                     downloadLink.style.display = "block";
                     downloadLink.textContent = "Download Translated Video";
                 } else {
-                    console.error("❌ Server Error:", result);
                     output.textContent = `❌ Error: ${result.error}`;
                 }
             } catch (error) {
-                console.error("❌ Fetch Error:", error);
                 output.textContent = "❌ Error processing video. Check console for details.";
+                console.error(error);
             }
-        });        
+        });
     </script>
-
 </body>
-
 </html>
