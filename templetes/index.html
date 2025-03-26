@@ -209,8 +209,9 @@
 
                 if (response.ok) {
                     output.textContent = "✅ Processing complete!";
-                    originalText.textContent = `🎤 Original Audio Text: ${result.original_text}`;
-                    translatedText.textContent = `🌍 Translated Audio Text: ${result.translated_text}`;
+                    originalText.textContent = `🎤 Original Audio Text: ${result.original_text || "N/A"}`;
+                    translatedText.textContent = `🌍 Translated Audio Text: ${result.translated_text || "N/A"}`;
+
                     
                     originalText.style.display = "block";
                     translatedText.style.display = "block";
