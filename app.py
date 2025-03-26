@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, send_file, url_for
-from flask_cors import CORS  # ✅ Import CORS for cross-origin requests
+from flask_cors import CORS 
 import os
 import ffmpeg
 import speech_recognition as sr
@@ -8,7 +8,7 @@ from deep_translator import GoogleTranslator
 from gtts import gTTS
 
 app = Flask(__name__)
-CORS(app)  # ✅ Enable CORS to allow frontend requests
+CORS(app) 
 
 # Set up upload and processed folders
 UPLOAD_FOLDER = "uploads"
@@ -80,8 +80,10 @@ def process_video():
         print("✅ Sending response to client with download link.")
         return jsonify({
             "message": "Processing complete!",
+            "original_text": text,  # 
+            "translated_text": translated_text, 
             "download_url": url_for('download_file', filename="final_video.mp4", _external=True)
-        })
+})
 
     except Exception as e:
         print(f"❌ General Processing Error: {e}")
