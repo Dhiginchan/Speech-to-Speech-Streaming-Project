@@ -18,31 +18,28 @@
             background-size: cover;
             color: white;
             padding: 50px;
-    
         }
         .container {
             background: rgba(0, 0, 0, 0.05);
             backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px); 
             padding: 30px;
             box-shadow: 0px 0px 10px rgb(47, 255, 227);
             border:3.5px solid rgba(0, 255, 247, 0.364);
             border-radius: 12px;
             text-align: center;
-            width: 100%;
             max-width: 500px;
         }
         h1 { font-size: 24px; margin-bottom: 20px; }
         input[type="file"] { display: none; }
         .custom-file-upload {
             display: inline-block;
-            background: #000000;
-            border:2px solid;/* rgba(1, 255, 1, 0.61);*/
-            border-image-source: linear-gradient(45deg,rgb(1, 255, 1),blue);
+            background: #000;
+            border: 2px solid;
+            border-image-source: linear-gradient(45deg, rgb(1, 255, 1), blue);
             border-image-slice: 1;
             padding: 10px 15px;
             color: white;
-            transition:.5s;
+            transition: .5s;
             box-shadow: 0px 0px 5px rgb(1, 255, 1);
             border-radius: 5px;
             cursor: pointer;
@@ -54,87 +51,58 @@
             outline: none;
             color: white;
             box-shadow: 0px 0px 10px rgb(1, 255, 251);
-            background: #000000;
-            border:2px solid;/* rgba(1, 255, 1, 0.61);*/
-            border-image-source: linear-gradient(45deg,rgb(1, 255, 1),blue);
+            background: #000;
+            border: 2px solid;
+            border-image-source: linear-gradient(45deg, rgb(1, 255, 1), blue);
             border-image-slice: 1;
             margin-top: 10px;
-            transition:.5s;
+            transition: .5s;
             border-radius: 5px;
             cursor: pointer;
-        }
-        button:hover{
-            box-shadow: 1px 1px 20px rgb(0, 255, 0);
-        }
-        select:hover{
-            box-shadow: 1px 1px 20px rgb(0, 255, 0);
-        }
-        .custom-file-upload:hover{
-            box-shadow: 1px 1px 20px rgb(0, 255, 0);
-        }
-        #downloadLink:hover{
-            box-shadow: 1px 1px 20px rgb(0, 255, 0);
         }
         #output, #originalText, #translatedText { 
             display: none; 
             font-size: 16px; 
             margin-top: 10px;
-            text-align:justify;
+            text-align: justify;
         }
         #downloadLink {
             display: none;
             padding: 10px;
-            transition:0.5s;
+            transition: 0.5s;
             border-radius: 6px;
-            outline: none;
             color: white;
-            box-shadow: 0px 0px 10px rgb(1, 255, 251);
-            background: #000000;
-            border:2px solid;/* rgba(1, 255, 1, 0.61);*/
-            border-image-source: linear-gradient(45deg,rgb(1, 255, 1),blue);
+            background: #000;
+            border: 2px solid;
+            border-image-source: linear-gradient(45deg, rgb(1, 255, 1), blue);
             border-image-slice: 1;
-        
             text-decoration: none;
             margin-top: 10px;
         }
-        .flexy{
+        .flexy {
             display: flex;
             margin-top: 20px;
         }
-
-        select::-webkit-scrollbar {
-            width: 7px;
-            
-        }
-
-        select::-webkit-scrollbar-track {
-            background-color: rgb(0, 0, 0);
-            border-radius: 10px;
-        }
-
-        select::-webkit-scrollbar-thumb {
-            background-color: rgb(0, 255, 0);
-            border-radius: 10px;
-        }
-        #videoPreview{
+        #videoPreview, #translatedVideo {
             box-shadow: 1px 1px 20px rgb(0, 255, 0);
-            margin-top:15px;
+            margin-top: 15px;
         }
-    
     </style>
 </head>
 
 <body>
-    <center><div class="container">
-        <h1>🎥 Video Translator</h1>
-        <label for="videoInput" class="custom-file-upload" id="sthimba">📂 Choose a Video</label>
-        <input type="file" id="videoInput" accept="video/*">
-        
-        <video id="videoPreview" controls></video>
-        <p id="videoUploaded" style="display:none;margin-top:20px">✅ Video Uploaded!</p>
-        <div class="flexy">
-            <label for="language" style="width:50%;padding-top:15px">Select Language</label>
-            <select id="language" style="width:50%;">
+    <center>
+        <div class="container">
+            <h1>🎥 Video Translator</h1>
+            <label for="videoInput" class="custom-file-upload" id="sthimba">📂 Choose a Video</label>
+            <input type="file" id="videoInput" accept="video/*">
+            
+            <video id="videoPreview" controls></video>
+            <p id="videoUploaded" style="display:none;margin-top:20px">✅ Video Uploaded!</p>
+
+            <div class="flexy">
+                <label for="language" style="width:50%;padding-top:15px">Select Language</label>
+                <select id="language" style="width:50%;">
                     <option value="ar">Arabic</option>
                     <option value="bn">Bengali</option>
                     <option value="zh">Chinese</option>
@@ -150,18 +118,18 @@
                     <option value="es">Spanish</option>
                     <option value="ta">Tamil</option>
                     <option value="te">Telugu</option>
+                </select>
+            </div>
 
-            </select>
+            <button id="processButton">SUBMIT</button>
+
+            <p id="output" style="text-align: center;">🔄 Processing video, please wait...</p>
+            <p id="originalText"></p>
+            <p id="translatedText"></p>
+
+            <video id="translatedVideo" controls></video>
+            <a id="downloadLink" href="#" download>Download Translated Video</a>
         </div>
-
-        <button id="processButton" style="margin-top: 30px;letter-spacing:3.5px">SUBMIT</button>
-
-        <p id="output" style="text-align: center;">🔄 Processing video, please wait...</p>
-        <p id="originalText"></p>
-        <p id="translatedText"></p>
-
-        <a id="downloadLink" href="#" download>Download Translated Video</a>
-    </div>
     </center>
 
     <script>
@@ -183,6 +151,7 @@
             const originalText = document.getElementById("originalText");
             const translatedText = document.getElementById("translatedText");
             const downloadLink = document.getElementById("downloadLink");
+            const translatedVideo = document.getElementById("translatedVideo");
 
             if (videoInput.files.length === 0) {
                 output.textContent = "❌ Please select a video file.";
@@ -198,6 +167,7 @@
             output.textContent = "🔄 Processing video, please wait...";
             output.style.display = "block";
             downloadLink.style.display = "none";
+            translatedVideo.style.display = "none";
 
             try {
                 const response = await fetch("http://127.0.0.1:5000/process", {
@@ -212,13 +182,14 @@
                     originalText.textContent = `🎤 Original Audio Text: ${result.original_text || "N/A"}`;
                     translatedText.textContent = `🌍 Translated Audio Text: ${result.translated_text || "N/A"}`;
 
-                    
                     originalText.style.display = "block";
                     translatedText.style.display = "block";
 
+                    translatedVideo.src = result.download_url;
+                    translatedVideo.style.display = "block";
+
                     downloadLink.href = result.download_url;
                     downloadLink.style.display = "block";
-                    downloadLink.textContent = "Download Translated Video";
                 } else {
                     output.textContent = `❌ Error: ${result.error}`;
                 }
